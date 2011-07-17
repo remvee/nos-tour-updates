@@ -1,0 +1,13 @@
+# nos-tour-comments
+
+Small ring app to allow following NOS tour comments on my mobile.
+
+## Usage
+
+lein run -m nos-tour-comments.core
+
+## License
+
+Copyright (C) 2011 Remco van 't Veer
+
+Distributed under the Eclipse Public License, the same as Clojure.
