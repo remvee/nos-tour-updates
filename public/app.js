@@ -2,10 +2,9 @@ $(document).ajaxStart(function() { $("body").addClass("busy") })
 $(document).ajaxComplete(function() { $("body").removeClass("busy") })
 
 var updater = function() {
+  setTimeout(updater, 15000)
   $.getJSON("/feed",
             function(data) {
-              setTimeout(updater, 15000)
-
               $("#date").html(data.report[0].published_at.substr(0, 11))
               var html = ''
               $.each(data.report, function() {
