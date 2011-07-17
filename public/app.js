@@ -1,3 +1,6 @@
+$(document).ajaxStart(function() { $("body").addClass("busy") })
+$(document).ajaxComplete(function() { $("body").removeClass("busy") })
+
 var updater = function() {
   $.getJSON("/feed",
             function(data) {
@@ -11,4 +14,5 @@ var updater = function() {
               $("#comments").html(html)
             })
 }
-updater()
+
+$(document).ready(updater)
