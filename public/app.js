@@ -1,5 +1,5 @@
 var updater = function() {
-  $.getJSON("/feed?" + Math.floor(Math.random()*999999999),
+  $.getJSON("/feed",
             function(data) {
               setTimeout(updater, 15000)
 

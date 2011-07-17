@@ -17,7 +17,8 @@
 (defn handler [req]
   (case (:uri req)
         "/feed" {:status 200
-                 :headers {"Content-Type" "application/javascript"}
+                 :headers {"Content-Type" "application/javascript"
+                           "Cache-Control" "public, max-age=5"}
                  :body @data}
         "/" {:status 301
              :headers {"Location" "/app.html"}}
