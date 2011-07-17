@@ -5,7 +5,7 @@
         ring.adapter.jetty))
 
 (def *url* "http://nos.nl/data/livestream/report/comments_0.js")
-(def *interval* 5000)
+(def *interval* 15000)
 (defn fetch [] (try (slurp *url*) (catch Exception _)))
 (def data (agent (fetch)))
 (defn updater [_]
