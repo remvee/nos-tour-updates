@@ -1,1 +1,3 @@
 ul, li { list-style: none; padding: 0; }
+#footer { font-size: smaller; margin-top: 4em; padding-top: 1em; border-top: solid black 1px; }
+#footer p { margin: 0; }
