@@ -2,6 +2,7 @@
   (:use hiccup.core
         ring.middleware.file
         ring.middleware.file-info
+        ring.middleware.gzip
         ring.adapter.jetty))
 
 (def *url* "http://nos.nl/data/livestream/report/comments_0.js")
@@ -24,7 +25,7 @@
              :headers {"Location" "/app.html"}}
         nil))
 
-(def app (-> handler (wrap-file "public") (wrap-file-info)))
+(def app (-> handler (wrap-file "public") (wrap-file-info) wrap-gzip))
 
 (defn -main []
   (let [port (Integer/parseInt (get (System/getenv) "PORT" "8080"))]

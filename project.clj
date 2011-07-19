@@ -3,4 +3,5 @@
   :dependencies [[org.clojure/clojure "1.2.1"]
                  [hiccup "0.3.6"]
                  [ring/ring-core "0.3.10"]
-                 [ring/ring-jetty-adapter "0.3.10"]])
+                 [ring/ring-jetty-adapter "0.3.10"]
+                 [amalloy/ring-gzip-middleware "0.1.0"]])
