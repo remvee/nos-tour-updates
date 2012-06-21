@@ -8,12 +8,13 @@
 (def *url* "http://nos.nl/data/livestream/report/comments_0.js")
 (def *interval* 15000)
 (defn fetch [] (try (slurp *url*) (catch Exception _)))
-(def data (agent (fetch)))
+(def data (agent nil))
 (defn updater [_]
   (Thread/sleep *interval*)
   (send-off data updater)
   (fetch))
-(send-off data updater)
+(when-not *compile-files*
+  (send-off data updater))
 
 (defn handler [req]
   (case (:uri req)
