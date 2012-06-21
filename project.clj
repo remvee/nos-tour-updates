@@ -1,4 +1,5 @@
 (defproject nos-tour-comments "1.0.0-SNAPSHOT"
+  :main nos-tour-comments.core
   :description "Simple NOS Tour de France comments only site."
   :dependencies [[org.clojure/clojure "1.2.1"]
                  [hiccup "0.3.6"]

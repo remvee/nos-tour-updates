@@ -4,7 +4,7 @@ Small ring app to allow following NOS tour comments on my mobile.
 
 ## Usage
 
-lein run -m nos-tour-comments.core
+lein run
 
 ## License
 

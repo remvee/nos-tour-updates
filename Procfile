@@ -1,1 +1,1 @@
-web: lein run -m nos-tour-comments.core
+web: lein run
