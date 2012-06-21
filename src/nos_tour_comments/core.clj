@@ -29,5 +29,6 @@
 (def app (-> handler (wrap-file "public") (wrap-file-info) wrap-gzip))
 
 (defn -main []
-  (let [port (Integer/parseInt (get (System/getenv) "PORT" "8080"))]
-    (run-jetty #'app {:port port})))
+  (let [host (get (System/getenv) "HOST")
+        port (Integer/parseInt (get (System/getenv) "PORT" "8080"))]
+    (run-jetty #'app {:host host :port port})))
