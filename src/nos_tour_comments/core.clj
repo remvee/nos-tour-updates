@@ -22,8 +22,6 @@
                  :headers {"Content-Type" "application/javascript"
                            "Cache-Control" "public, max-age=5"}
                  :body @data}
-        "/" {:status 301
-             :headers {"Location" "/app.html"}}
         nil))
 
 (def app (-> handler (wrap-file "public") (wrap-file-info) wrap-gzip))
