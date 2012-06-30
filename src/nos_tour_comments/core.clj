@@ -5,7 +5,7 @@
         ring.middleware.gzip
         ring.adapter.jetty))
 
-(def *url* "http://nos.nl/data/livestream/report/comments_0.js")
+(def *url* "http://nos.nl/data/livestream/report/comments_2012.js")
 (def *interval* 15000)
 (defn fetch [] (try (slurp *url*) (catch Exception _)))
 (def data (agent nil))
