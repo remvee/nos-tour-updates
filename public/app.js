@@ -3,7 +3,7 @@ $(document).ajaxComplete(function() { $("body").removeClass("busy") })
 
 var updater = function() {
   setTimeout(updater, 15000)
-  $.getJSON("/feed",
+  $.getJSON("/feed?" + new Date().getTime(),
             function(data) {
               var html = ''
               if (data.report.length > 0) {
@@ -16,4 +16,4 @@ var updater = function() {
             })
 }
 
-$(document).ready(updater)
+$(updater)
