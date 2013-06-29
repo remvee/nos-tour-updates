@@ -9,13 +9,17 @@ $(function() {
       setTimeout(f, 15000);
       $.getJSON("/feed?" + new Date().getTime(),
                 function(data) {
-                  if (data.report.length > 0) {
-                    $("#date").html(data.report[0].published_at.substr(0, 11));
-                    $("#comments").html($.map(data.report, function(v) {
-                      return "<li><strong>" + v.published_at.substr(11,5) + " " + v.title + "</strong><p>" + v.comment + "</p></li>";
+                  if (data.length > 0) {
+                    $("#date").html(data[0].date_created.substr(0, 11));
+                    $("#comments").html($.map(data, function(v) {
+                      if (v.body.match(/<iframe/)) {
+                        return "";
+                      } else {
+                        return "<li><strong>" + v.date_created.substr(11,5) + " " + v.title + "</strong><p>" + v.body + "</p></li>";
+                      }
                     }).join(""));
                   }
                 });
-    }
+    };
   })();
 });
