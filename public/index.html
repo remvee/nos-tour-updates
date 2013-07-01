@@ -4,22 +4,37 @@
     <title>NOS Tour Commentaar</title>
     <meta content="width=device-width, initial-scale=1, maximum-scale=1" name="viewport">
     <link type="text/css" rel="stylesheet" media="screen" href="app.css">
-    <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.6.2/jquery.min.js"></script>
-    <script src="app.js"></script>
   </head>
   <body>
-    <h1>NOS Tour Commentaar <span id="date" class="dynamic"></span></h1>
+    <header>
+      <a href="?full" class="pre-full preprocessor">alles</a>
+      <a href="?light" class="pre-light preprocessor">licht</a>
+      <h1>NOS Tour Commentaar <span id="date" class="dynamic"></span></h1>
+    </header>
+
     <ul id="comments" class="dynamic">
-      <li>Even geduld A.U.B.</h2>
+      <li class="busy">Even geduld A.U.B.</h2>
     </ul>
 
-    <div id="footer">
+    <footer id="footer">
       <p>
         Bron: <a href="http://nos.nl/">NOS.nl</a>
       </p>
       <p>
         Code: <a href="https://github.com/remvee/nos-tour-updates">remvee/nos-tour-updates @ github</a>
       </p>
-    </div>
+    </footer>
+
+    <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.6.2/jquery.min.js"></script>
+    <script src="app.js"></script>
+    <script type="text/javascript">
+      (function() {
+        var t = window.location.search;
+        if (t.length) t = t.replace(/\?/, '');
+        else t = "light";
+        $(".pre-" + t).remove();
+        NosTour.start(NosTour[t]);
+      })();
+    </script>
   </body>
 </html>
