@@ -5,14 +5,23 @@
         ring.middleware.gzip
         ring.adapter.jetty))
 
-(def *url* "http://nos.nl/data/liveblog/report/items_169.json")
 (def *interval* 15000)
-(defn fetch [] (try (slurp *url*) (catch Exception _)))
+
+(defn url []
+  (let [data (slurp "http://nos.nl/dossier/515430-tour-de-france-2013/tab/730/live/")
+        id (last (re-find #"liveblogSettings.*\bid:\s+(\d+).*}" data))]
+    (str "http://nos.nl/data/liveblog/report/items_" id ".json")))
+
+(defn fetch []
+  (try (slurp (url)) (catch Exception _)))
+
 (def data (agent nil))
+
 (defn updater [_]
   (Thread/sleep *interval*)
   (send-off data updater)
   (fetch))
+
 (when-not *compile-files*
   (send-off data updater))
 
