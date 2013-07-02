@@ -8,7 +8,9 @@ var NosTour = {
         iw = body.match(/<iframe[^>]*width="(.*?)"/),
         ih = body.match(/<iframe[^>]*height="(.*?)"/);
     return (iw, ih) ?
-      body.replace(/<iframe([^>]*?)(width|height)="[^"]*"([^>]*?)(width|height)="[^"]*"([^>]*?)>/, "<iframe width=\"" + width + "\" height=\"" + Math.round(parseInt(ih[1]) / parseInt(iw[1]) * width) + "\" $1$3$5>") :
+      body.replace(/<iframe([^>]*?)(width|height)="[^"]*"([^>]*?)(width|height)="[^"]*"([^>]*?)>/,
+                   "<iframe width=\"" + width + "\" height=\"" + Math.round(parseInt(ih[1]) /
+                                                                            parseInt(iw[1]) * width) + "\" $1$3$5>") :
       body;
   },
 
@@ -25,15 +27,24 @@ var NosTour = {
                     if (data && data.length > 0) {
                       $("li.busy").remove();
                       $("#date").html(data[0].date_created.substr(0, 11));
+
+                      $("li.item").addClass("stale");
                       for (var i = data.length - 1; i >= 0; i--) {
-                        var v = data[i];
-                        if (! document.getElementById("c_" + v.id)) {
-                          var body = pre(v.body);
+                        var item = data[i];
+                        var el = document.getElementById("c_" + item.id);
+                        if (el) {
+                          $(el).removeClass("stale");
+                        } else {
+                          var body = pre(item.body), 
+                              title = item.date_created.substr(11,5) + " " + item.title;
                           if (body.length) {
-                            $("#comments").prepend("<li id='c_" + v.id + "'><strong>" + v.date_created.substr(11,5) + " " + v.title + "</strong><p>" + body + "</p></li>");
+                            $("#comments").prepend("<li class='item' id='c_" + item.id + "'>" +
+                                                   "<strong>" + title + "</strong>" +
+                                                   "<p>" + body + "</p></li>");
                           }
                         }
                       }
+                      $("li.item.stale").remove();
                     }
                   });
       };
