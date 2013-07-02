@@ -24,13 +24,14 @@ var NosTour = {
         setTimeout(f, 15000);
         $.getJSON("/feed?" + new Date().getTime(),
                   function(data) {
-                    if (data && data.length > 0) {
-                      $("li.busy").remove();
-                      $("#date").html(data[0].date_created.substr(0, 11));
+                    $("li.loading").remove();
+
+                    if (data && data.items && data.items.length > 0) {
+                      $("#date").html(data.items[0].date_created.substr(0, 11));
 
                       $("li.item").addClass("stale");
-                      for (var i = data.length - 1; i >= 0; i--) {
-                        var item = data[i];
+                      for (var i = data.items.length - 1; i >= 0; i--) {
+                        var item = data.items[i];
                         var el = document.getElementById("c_" + item.id);
                         if (el) {
                           $(el).removeClass("stale");
@@ -46,6 +47,9 @@ var NosTour = {
                       }
                       $("li.item.stale").remove();
                     }
+
+                    $(document.body).toggleClass("live", data && data.status == "live");
+                    $(document.body).toggleClass("stale", !(data && data.status == "live"));
                   });
       };
     })();

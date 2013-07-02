@@ -4,6 +4,8 @@ h1 { font-size: 16px; margin: 0 0 4px 0; padding: 4px; }
 h1 #date { font-weight: normal; font-size: 14px; }
 .dynamic { color: #000; transition: 1s; -moz-transition: 1s; -webkit-transition: 1s; }
 .busy .dynamic { color: #888; }
+#feed-not-available { display: none; padding: 4px; font-style: italic; }
+.stale #feed-not-available { display: block; }
 #comments { list-style: none; padding: 0; margin: 0; border-bottom: solid #ccc 1px; }
 #comments li { border-top: solid #ccc 1px; padding: 4px; margin: 0; }
 #comments p { margin: 4px 0 0 0; }
