@@ -1,14 +1,13 @@
 (ns nos-tour-comments.core
-  (:use hiccup.core
-        ring.middleware.file
-        ring.middleware.file-info
-        ring.middleware.gzip
-        ring.adapter.jetty))
+  (:require [ring.middleware.file :refer [wrap-file]]
+            [ring.middleware.file-info :refer [wrap-file-info]]
+            [ring.middleware.gzip :refer [wrap-gzip]]
+            [ring.adapter.jetty :refer [run-jetty]]))
 
-(def *interval* 15000)
+(def interval 15000)
 
 (defn items-url []
-  (let [data (slurp "http://nos.nl/dossier/515430-tour-de-france-2013/tab/730/live/")]
+  (let [data (slurp "http://nos.nl/dossier/644527-tour-de-france-2014/tab/924/live/")]
     (if-let [id (last (re-find #"liveblogSettings.*\bid:\s+(\d+).*}" data))]
       (str "http://nos.nl/data/liveblog/report/items_" id ".json"))))
 
@@ -19,7 +18,7 @@
                   :items "[]"}))
 
 (defn updater [old]
-  (Thread/sleep *interval*)
+  (Thread/sleep interval)
   (send-off data updater)
   (let [items (fetch-items)]
     (assoc old
