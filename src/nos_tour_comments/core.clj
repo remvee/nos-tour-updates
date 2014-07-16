@@ -29,13 +29,14 @@
   (send-off data updater))
 
 (defn handler [req]
-  (case (:uri req)
-        "/feed" {:status 200
-                 :headers {"Content-Type" "application/javascript"
-                           "Cache-Control" "public, max-age=5"}
-                 :body (str "{\"status\":\"" (:status @data) "\","
-                            "\"items\":" (:items @data) "}")}
-        nil))
+  (let [data @data]
+    (case (:uri req)
+      "/feed" {:status 200
+               :headers {"Content-Type" "application/javascript"
+                         "Cache-Control" "public, max-age=5"}
+               :body (str "{\"status\":\"" (:status data) "\","
+                          "\"items\":" (:items data) "}")}
+      nil)))
 
 (def app (-> handler (wrap-file "public") (wrap-file-info) wrap-gzip))
 
